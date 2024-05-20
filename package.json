@@ -1,0 +1,33 @@
+{
+    "name": "ts-template",
+    "version": "0.1.0",
+    "description": "My node project",
+    "main": "main.js",
+    "type": "module",
+    "scripts": {
+        "build": "tsc",
+        "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "tsx watch ./src/main.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ruairica/node-ts-template.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ruairica/node-ts-template/issues"
+    },
+    "homepage": "https://github.com/ruairica/node-ts-template#readme",
+    "devDependencies": {
+        "@types/node": "^20.12.7",
+        "@typescript-eslint/eslint-plugin": "^7.8.0",
+        "@typescript-eslint/parser": "^7.8.0",
+        "eslint": "^8.56.0",
+        "prettier": "^3.2.5",
+        "tsx": "^4.7.3",
+        "typescript": "^5.4.5"
+    }
+}
