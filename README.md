@@ -1,5 +1,5 @@
-paste open api schema into src/schema.yaml
+add one or more yaml open api specifications to the /src folder
 
-run `npm install`
+run `bun install`
 
-run `npm run dev`
+run `bun run dev`

@@ -1,23 +1,60 @@
-import express from 'express';
-import fs from 'fs';
-import { dirname, join } from 'path';
-import swaggerUi from 'swagger-ui-express';
-import { fileURLToPath } from 'url';
+import { readdir } from 'node:fs/promises';
+import { join } from 'node:path';
 import YAML from 'yamljs';
 
-const app = express();
 const port = 3001;
 
-const srcDir = dirname(fileURLToPath(import.meta.url));
-
-fs.readdirSync(srcDir)
+const apiSpecs = (await readdir(import.meta.dir))
     .filter((file) => file.endsWith('.yaml') || file.endsWith('.yml'))
-    .map((file) => ({ yaml: YAML.load(join(srcDir, file)), fileName: file.split('.')[0] }))
-    .forEach((x) => {
-        app.use(`/${x.fileName}`, swaggerUi.serveFiles(x.yaml), swaggerUi.setup(x.yaml));
-        console.log(`Swagger UI available at http://localhost:${port}/${x.fileName}`);
-    });
+    .map((file) => ({
+        fileName: file.split('.')[0],
+        yaml: YAML.load(join(import.meta.dir, file)),
+    }))
+    .reduce(
+        (acc, cur) => acc.set(cur.fileName, cur.yaml),
+        new Map<string, unknown>()
+    );
 
-app.listen(port, () => {
-    console.log(`Server running`);
+apiSpecs.forEach((_, fileName) => {
+    console.log(`Swagger UI available at http://localhost:${port}/${fileName}`);
 });
+
+Bun.serve({
+    port: port,
+    fetch(req) {
+        const fileName = new URL(req.url).pathname.replace(/\//g, '');
+        if (apiSpecs.has(fileName)) {
+            return new Response(swaggerPage(apiSpecs.get(fileName)), {
+                headers: {
+                    'Content-Type': 'text/html',
+                },
+            });
+        }
+        return new Response(`404! that doesn't match a file name`);
+    },
+});
+
+function swaggerPage(apiSpec: unknown): string {
+    return `<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@3/swagger-ui.css" />
+        <script src="//unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js"></script>
+        <script>
+            function render() {
+                var ui = SwaggerUIBundle({
+                    spec:  ${JSON.stringify(apiSpec)},
+                    dom_id: '#swagger-ui',
+                    presets: [
+                        SwaggerUIBundle.presets.apis,
+                        SwaggerUIBundle.SwaggerUIStandalonePreset
+                    ]
+                });
+            }
+        </script>
+    </head>
+
+    <body onload="render()">
+        <div id="swagger-ui"></div>
+    </body>
+</html>`;
+}

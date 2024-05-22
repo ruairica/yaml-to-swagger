@@ -8,32 +8,22 @@
         "build": "tsc",
         "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "tsx watch ./src/main.ts"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/ruairica/node-ts-template.git"
+        "dev": "bun --watch run src/main.ts"
     },
     "keywords": [],
     "author": "",
     "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/ruairica/node-ts-template/issues"
-    },
-    "homepage": "https://github.com/ruairica/node-ts-template#readme",
+    "bugs": {},
     "devDependencies": {
-        "@types/node": "^20.12.7",
-        "@types/swagger-ui-express": "^4.1.6",
         "@types/yamljs": "^0.2.34",
         "@typescript-eslint/eslint-plugin": "^7.8.0",
         "@typescript-eslint/parser": "^7.8.0",
         "eslint": "^8.56.0",
         "prettier": "^3.2.5",
-        "tsx": "^4.7.3",
         "typescript": "^5.4.5"
     },
     "dependencies": {
-        "swagger-ui-express": "^5.0.0",
+        "bun-types": "^1.1.9",
         "yamljs": "^0.3.0"
     }
 }
