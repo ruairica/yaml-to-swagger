@@ -1,29 +1,27 @@
 {
-    "name": "ts-template",
-    "version": "0.1.0",
-    "description": "My node project",
-    "main": "main.js",
-    "type": "module",
-    "scripts": {
-        "build": "tsc",
-        "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "bun --watch run src/main.ts"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "MIT",
-    "bugs": {},
-    "devDependencies": {
-        "@types/yamljs": "^0.2.34",
-        "@typescript-eslint/eslint-plugin": "^7.8.0",
-        "@typescript-eslint/parser": "^7.8.0",
-        "eslint": "^8.56.0",
-        "prettier": "^3.2.5",
-        "typescript": "^5.4.5"
-    },
-    "dependencies": {
-        "bun-types": "^1.1.9",
-        "yamljs": "^0.3.0"
-    }
+  "name": "openapi-yaml-to-swagger",
+  "version": "0.1.0",
+  "description": "My node project",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun --watch run src/main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {},
+  "devDependencies": {
+    "@types/yamljs": "^0.2.34",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5"
+  },
+  "dependencies": {
+    "bun-types": "^1.1.9",
+    "yamljs": "^0.3.0"
+  }
 }
